@@ -51,12 +51,7 @@
     "no-this-assignment": true,
     "no-duplicate-variable": true,
     "await-promise": true,
-    "typedef": [
-      true,
-      "call-signature",
-      "parameter",
-      "member-variable-declaration"
-    ],
+    "typedef": [true, "call-signature", "parameter", "member-variable-declaration"],
     "whitespace": [
       true,
       "check-branch",
