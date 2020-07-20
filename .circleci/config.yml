@@ -1,18 +1,30 @@
-version: 2.1
-orbs:
-  node: circleci/node@1.1.6
+# config.yml
+version: 2
 jobs:
-  build-and-test:
-    executor:
-      name: node/default
+  build:
+    machine: true
+
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install yarn -g
-            - run: yarn
-            - run: yarn workspace server test-server
-workflows:
-    build-and-test:
-      jobs:
-        - build-and-test
+      - run:
+          name: Install node
+          command: |
+            export NVM_DIR="/opt/circleci/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+            nvm install v12.18.2
+            nvm alias default v12.18.2
+
+            sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+            sudo chmod +x /usr/local/bin/docker-compose
+            docker-compose --version
+      - run: |
+          npm version
+          npm install -g yarn
+          yarn install --ignore-engines
+          cd packages/server
+          docker-compose up -d
+      - run: |
+          yarn workspace server test-server
+      - run: |
+          yarn workspace server test
