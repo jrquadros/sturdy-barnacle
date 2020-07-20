@@ -1,11 +1,21 @@
 // import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
+import * as bcrypt from 'bcryptjs'
+import { ResolverMap } from './types/graphql-utils'
+import { User } from './entity/User'
 
-export const ResolverMap = {
+export const resolvers: ResolverMap = {
   Query: {
-    hello: (_: any, { name }: GQL.IHelloOnQueryArguments) => `Hello ${name || 'World'}`,
+    hello: (_, { name }: GQL.IHelloOnQueryArguments) => `Bye ${name || 'World'}`,
   },
-
   Mutation: {
-    register: (_: any, {}: GQL.IRegisterOnMutationArguments) => {},
+    register: async (_, { email, password }: GQL.IRegisterOnMutationArguments) => {
+      const hashedPassword = await bcrypt.hash(password, 10)
+      const user = User.create({
+        email,
+        password: hashedPassword,
+      })
+      await user.save()
+      return true
+    },
   },
 }
