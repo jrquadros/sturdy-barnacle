@@ -5,15 +5,18 @@ import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 import { addResolversToSchema } from '@graphql-tools/schema'
 import { join } from 'path'
 import { resolvers } from './resolvers'
-import { createConnection } from 'typeorm'
+import { createTypeOrmConnection } from './utils/createTypeormConnection'
 
-const typedefs = loadSchemaSync(join(__dirname, './schema.graphql'), {
-  loaders: [new GraphQLFileLoader()],
-})
+export const startServer = async () => {
+  await createTypeOrmConnection()
+  const typedefs = loadSchemaSync(join(__dirname, './schema.graphql'), {
+    loaders: [new GraphQLFileLoader()],
+  })
 
-const schemaWithResolvers = addResolversToSchema({ schema: typedefs, resolvers })
-const server = new GraphQLServer({ schema: schemaWithResolvers, resolvers })
+  const schemaWithResolvers = addResolversToSchema({ schema: typedefs, resolvers })
+  const server = new GraphQLServer({ schema: schemaWithResolvers, resolvers })
 
-createConnection().then(() => {
-  server.start(() => console.log('Server is running on localhost:4000'))
-})
+  await server.start(() => console.log('Server is running on localhost:4000'))
+}
+
+startServer()
