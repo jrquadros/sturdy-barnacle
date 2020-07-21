@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  pg-database:
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres2020"
+      POSTGRES_DB: "graphqlserver"
+    ports:
+      - 127.0.0.1:5432:5432
+    volumes:
+      - /home/development/Docker-Compose/PostgreSQL:/var/lib/postgresql/data
+    networks:
+      - postgres-compose-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "me@mail.com"
+      PGADMIN_DEFAULT_PASSWORD: "PgAdmin2019!"
+    ports:
+      - "16543:80"
+    depends_on:
+      - pg-database
+    networks:
+      - postgres-compose-network
+
+networks:
+  postgres-compose-network:
+    driver: bridge

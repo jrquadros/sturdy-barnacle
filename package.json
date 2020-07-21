@@ -1,11 +1,17 @@
 {
   "name": "root",
   "private": true,
+  "engines": {
+    "yarn": "^1.16.0"
+  },
   "devDependencies": {
     "lerna": "^3.22.1"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap --hoist",
+    "bootstrap": "lerna bootstrap",
     "server:ci": "lerna run --scope server ci"
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }

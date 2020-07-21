@@ -7,7 +7,7 @@
     "port": 5432,
     "username": "postgres",
     "password": "postgres2020",
-    "database": "graphql-server",
+    "database": "graphqlserver",
     "synchronize": true,
     "logging": true,
     "entities": ["src/entity/**/*.ts"],
@@ -15,7 +15,7 @@
     "subscribers": ["src/subscriber/**/*.ts"],
     "cli": {
       "entitiesDir": "src/entity",
-      "migrationsDir": "src/migration",
+      " ": "src/migration",
       "subscribersDir": "src/subscriber"
     }
   },
@@ -27,7 +27,7 @@
     "port": 5432,
     "username": "postgres",
     "password": "postgres2020",
-    "database": "graphql-server-test",
+    "database": "graphqltest",
     "synchronize": true,
     "dropSchema": true,
     "logging": false,
