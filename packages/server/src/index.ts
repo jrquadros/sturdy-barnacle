@@ -6,6 +6,7 @@ import { addResolversToSchema } from '@graphql-tools/schema'
 import { join } from 'path'
 import { resolvers } from './resolvers'
 import { createTypeOrmConnection } from './utils/createTypeormConnection'
+import { config } from './config'
 
 export const startServer = async () => {
   await createTypeOrmConnection()
@@ -16,7 +17,9 @@ export const startServer = async () => {
   const schemaWithResolvers = addResolversToSchema({ schema: typedefs, resolvers })
   const server = new GraphQLServer({ schema: schemaWithResolvers, resolvers })
 
-  await server.start(() => console.log('Server is running on localhost:4000'))
+  await server.start({ port: config.serverPort }).then(() => {
+    console.log(`Server running at port ${config.serverPort}`)
+  })
 }
 
 startServer()
