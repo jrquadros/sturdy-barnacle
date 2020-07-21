@@ -1,13 +1,11 @@
 {
   "name": "root",
   "private": true,
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/jrquadros/sturdy-barnacle.git",
-  "license": "MIT",
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  },
+  "scripts": {
+    "bootstrap": "lerna bootstrap --hoist",
+    "server:ci": "lerna run --scope server ci"
   }
 }
