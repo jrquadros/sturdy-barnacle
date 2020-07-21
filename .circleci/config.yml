@@ -22,9 +22,6 @@ jobs:
           npm version
           npm install -g yarn
           yarn install --ignore-engines
-          cd packages/server
           docker-compose up -d
       - run: |
-          yarn workspace server test-server
-      - run: |
-          yarn workspace server test
+          yarn workspace server ci
