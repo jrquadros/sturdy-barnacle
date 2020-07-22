@@ -1,20 +1,29 @@
 import { GraphQLServer } from 'graphql-yoga'
-import { loadSchemaSync } from '@graphql-tools/load'
-import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
-import { addResolversToSchema } from '@graphql-tools/schema'
+import { importSchema } from 'graphql-import'
 import { join } from 'path'
-import { resolvers } from './resolvers'
 import { createTypeOrmConnection } from './utils/createTypeormConnection'
 import { config } from './config'
 
+import * as fs from 'fs'
+import { GraphQLSchema } from 'graphql'
+import { mergeSchemas, makeExecutableSchema } from 'graphql-tools'
+
 export const startServer = async () => {
-  await createTypeOrmConnection()
-  const typedefs = loadSchemaSync(join(__dirname, './schema.graphql'), {
-    loaders: [new GraphQLFileLoader()],
+  const folders = fs.readdirSync(join(__dirname, './modules'))
+
+  const schemas: GraphQLSchema[] = []
+
+  folders.map((folder) => {
+    const { resolvers } = require(join(__dirname, `./modules/${folder}/resolvers`))
+    const typedefs = importSchema(join(__dirname, `./modules/${folder}/schema.graphql`))
+    schemas.push(makeExecutableSchema({ typeDefs: typedefs, resolvers }))
   })
 
-  const schemaWithResolvers = addResolversToSchema({ schema: typedefs, resolvers })
-  const server = new GraphQLServer({ schema: schemaWithResolvers, resolvers })
+  await createTypeOrmConnection()
+
+  const schema: any = mergeSchemas({ schemas })
+
+  const server = new GraphQLServer({ schema })
 
   const app = await server.start({ port: config.serverPort }).then(() => {
     console.log(`Server running at port ${config.serverPort}`)
