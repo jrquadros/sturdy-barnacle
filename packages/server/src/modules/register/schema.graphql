@@ -10,5 +10,5 @@ type Error {
 }
 
 type Mutation {
-  register(email: String!, password: String!): [Error!]
+  register(email: String!, name: String!): [Error!]
 }

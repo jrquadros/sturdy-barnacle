@@ -1,4 +1,3 @@
-import * as bcrypt from 'bcryptjs'
 import { ResolverMap } from '../../types/graphql-utils'
 import { User } from '../../entity/User'
 import * as yup from 'yup'
@@ -6,7 +5,7 @@ import { formatYupError } from '../../utils/formatYupError'
 
 const schema = yup.object().shape({
   email: yup.string().min(3).max(255).email(),
-  password: yup.string().min(3).max(255),
+  name: yup.string().min(3).max(255),
 })
 
 export const resolvers: ResolverMap = {
@@ -15,7 +14,7 @@ export const resolvers: ResolverMap = {
   },
   Mutation: {
     register: async (_, args: GQL.IRegisterOnMutationArguments) => {
-      const { email, password } = args
+      const { email, name } = args
 
       try {
         await schema.validate(args, { abortEarly: false })
@@ -23,7 +22,7 @@ export const resolvers: ResolverMap = {
         return formatYupError(error)
       }
 
-      const hashedPassword = await bcrypt.hash(password, 10)
+      // const hashedPassword = await bcrypt.hash(password, 10)
 
       const userAlreadyExistis = await User.findOne({
         where: {
@@ -43,7 +42,7 @@ export const resolvers: ResolverMap = {
 
       const user = User.create({
         email,
-        password: hashedPassword,
+        name,
       })
       await user.save()
       return null
