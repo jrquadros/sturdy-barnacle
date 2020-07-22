@@ -39,6 +39,7 @@
     "@graphql-tools/graphql-file-loader": "^6.0.14",
     "@graphql-tools/load": "^6.0.14",
     "@graphql-tools/schema": "^6.0.14",
+    "@types/yup": "^0.29.3",
     "bcryptjs": "^2.4.3",
     "cross-fetch": "^3.0.5",
     "dotenv": "^8.2.0",
@@ -50,7 +51,8 @@
     "lodash": "^4.17.19",
     "pg": "^8.3.0",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "0.2.25"
+    "typeorm": "0.2.25",
+    "yup": "^0.29.1"
   },
   "lint-staged": {
     "*.ts": [
