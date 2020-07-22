@@ -1,7 +1,7 @@
-import { ResolverMap } from '../../types/graphql-utils'
-import { User } from '../../entity/User'
+import { ResolverMap } from '../../../types/graphql-utils'
+import { User } from '../../../entity/User'
 import * as yup from 'yup'
-import { formatYupError } from '../../utils/formatYupError'
+import { formatYupError } from '../../../utils/formatYupError'
 
 const schema = yup.object().shape({
   email: yup.string().min(3).max(255).email(),
