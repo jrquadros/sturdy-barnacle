@@ -20,29 +20,58 @@ line: number;
 column: number;
 }
 
-interface IQuery {
-__typename: "Query";
-hello: string;
-}
-
-interface IHelloOnQueryArguments {
-name?: string | null;
-}
-
 interface IError {
 __typename: "Error";
 path: string;
 message: string;
 }
 
+interface ITodo {
+__typename: "Todo";
+id: string;
+title: string;
+description: string | null;
+done: boolean | null;
+createdBy: IUser;
+createdAt: string;
+}
+
+interface IUser {
+__typename: "User";
+id: string;
+email: string;
+todos: Array<ITodo | null> | null;
+}
+
 interface IMutation {
 __typename: "Mutation";
+addTodo: Array<IError> | null;
 register: Array<IError> | null;
+}
+
+interface IAddTodoOnMutationArguments {
+title: string;
+description?: string | null;
+createdBy: IUser;
 }
 
 interface IRegisterOnMutationArguments {
 email: string;
 name: string;
+}
+
+interface IQuery {
+__typename: "Query";
+todos: Array<ITodo> | null;
+hello: string;
+}
+
+interface ITodosOnQueryArguments {
+user: IUser;
+}
+
+interface IHelloOnQueryArguments {
+name?: string | null;
 }
 }
 

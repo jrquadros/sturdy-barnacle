@@ -1,0 +1,8 @@
+type Todo {
+  id: ID!
+  title: String!
+  description: String
+  done: Boolean
+  createdBy: User!
+  createdAt: String!
+}

@@ -1,0 +1,7 @@
+type Mutation {
+  addTodo(title: String!, description: String, createdBy: User!): [Error!]
+}
+
+type Query {
+  todos(user: User!): [Todo!]
+}
