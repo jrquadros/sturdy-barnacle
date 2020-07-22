@@ -1,8 +1,9 @@
 import { request } from 'graphql-request'
-import { createTypeOrmConnection } from '../utils/createTypeormConnection'
+import { createTypeOrmConnection } from '../../utils/createTypeormConnection'
 import 'cross-fetch/polyfill'
-import { host } from './constants'
-import { User } from '../entity/User'
+import { User } from '../../entity/User'
+
+const host = 'http://localhost:4000'
 
 const email = 'user2@email.com'
 const password = 'userpassword'
