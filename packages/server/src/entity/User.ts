@@ -11,6 +11,6 @@ export class User extends BaseEntity {
   @Column('text')
   name: string
 
-  @OneToMany((_) => Todo, (todo: Todo) => todo.createdBy)
+  @OneToMany(() => Todo, (todo: Todo) => todo.author)
   todos: Todo[]
 }
