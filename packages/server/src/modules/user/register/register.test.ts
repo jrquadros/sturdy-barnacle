@@ -1,8 +1,8 @@
 import 'cross-fetch/polyfill'
 import { User } from '../../../entity/User'
+import { getHost } from '../../../utils/getHost'
 import { TestClient } from '../../../utils/testClient'
 import { createTestConn } from '../../../utils/createTestConnection'
-import { getHost } from '../../../utils/getHost'
 
 const host = getHost()
 const email = 'user2@email.com'
