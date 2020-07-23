@@ -15,6 +15,17 @@ services:
       - postgres-compose-network
     env_file:
       - .env
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "me@mail.com"
+      PGADMIN_DEFAULT_PASSWORD: "PgAdmin2019!"
+    ports:
+      - "16543:80"
+    depends_on:
+      - pg-database
+    networks:
+      - postgres-compose-network
 
 networks:
   postgres-compose-network:
