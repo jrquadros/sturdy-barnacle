@@ -62,7 +62,12 @@ name: string;
 
 interface IQuery {
 __typename: "Query";
+todos: Array<ITodo | null>;
 hello: string;
+}
+
+interface ITodosOnQueryArguments {
+author: string;
 }
 
 interface IHelloOnQueryArguments {
