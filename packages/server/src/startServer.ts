@@ -2,6 +2,7 @@ import { GraphQLServer } from 'graphql-yoga'
 import { createTypeOrmConnection } from './utils/createTypeormConnection'
 import { config } from './config'
 import { genSchema } from './utils/genSchema'
+import 'dotenv/config'
 export const startServer = async () => {
   await createTypeOrmConnection()
 

@@ -1,30 +1,29 @@
-import { request } from 'graphql-request'
-import { createTypeOrmConnection } from '../../../utils/createTypeormConnection'
 import 'cross-fetch/polyfill'
 import { User } from '../../../entity/User'
+import { getHost } from '../../../utils/getHost'
+import { TestClient } from '../../../utils/testClient'
+import { createTestConn } from '../../../utils/createTestConnection'
 
-const host = 'http://localhost:4000'
-
+const host = getHost()
 const email = 'user2@email.com'
 const name = 'username'
 
-const mutation = (emailFromInput: string, nameFromInput: string) => `
-mutation {
-  register(email: "${emailFromInput}", name: "${nameFromInput}") {
-    path
-    message
-  }
-}
-`
+const client = new TestClient(host)
+
+let conn: any
 
 beforeAll(async () => {
-  await createTypeOrmConnection()
+  conn = await createTestConn(true)
+})
+
+afterAll(async () => {
+  conn.close()
 })
 
 test('Register user', async () => {
   // test if can create a user
-  const response = await request(host, mutation(email, name))
-  expect(response).toEqual({ register: null })
+  const response = await client.register(email, name)
+  expect(response.data).toEqual({ register: null })
   const users = await User.find({ where: { email } })
   expect(users).toHaveLength(1)
   const user = users[0]
@@ -32,17 +31,17 @@ test('Register user', async () => {
   // expect(user.password).not.toEqual(password)
 
   // test duplicate email
-  const response2: any = await request(host, mutation(email, name))
-  expect(response2.register).toHaveLength(1)
-  expect(response2.register[0].path).toEqual('email')
+  const response2 = await client.register(email, name)
+  expect(response2.data.register).toHaveLength(1)
+  expect(response2.data.register[0].path).toEqual('email')
 
   // test input validation
 
   // bad email
-  const response3: any = await request(host, mutation('wrongemailformat', name))
-  expect(response3.register[0].path).toEqual('email')
+  const response3: any = await client.register('wrongemailformat', name)
+  expect(response3.data.register[0].path).toEqual('email')
 
   // bad name
-  const response4: any = await request(host, mutation(email, 'p'))
-  expect(response4.register[0].path).toEqual('name')
+  const response4: any = await client.register(email, 'p')
+  expect(response4.data.register[0].path).toEqual('name')
 })
