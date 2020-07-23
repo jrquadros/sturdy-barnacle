@@ -1,0 +1,39 @@
+# Exposes a URL that specifies the behaviour of this scalar.
+directive @specifiedBy(
+  # The URL that specifies the behaviour of this scalar.
+  url: String!
+) on SCALAR
+type Error {
+  path: String!
+  message: String!
+}
+
+type Todo {
+  id: ID!
+  title: String!
+  description: String
+  done: Boolean
+  createdBy: User!
+  createdAt: String!
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  todos: [Todo]
+}
+
+type Mutation {
+  addTodo(title: String!, description: String, author: ID!): [Error!]
+  markAsDone(todoId: ID!): [Error!]
+  register(email: String!, name: String!): [Error!]
+}
+
+type Query {
+  todos(author: ID!): [Todo]!
+  todoDetails(todoId: ID!): Todo
+  me(userId: ID!): User
+  hello(name: String): String!
+}
+

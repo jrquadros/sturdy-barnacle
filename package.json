@@ -5,7 +5,8 @@
     "yarn": "^1.16.0"
   },
   "devDependencies": {
-    "lerna": "^3.22.1"
+    "lerna": "^3.22.1",
+    "relay-compiler-language-typescript": "2.0.0"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
