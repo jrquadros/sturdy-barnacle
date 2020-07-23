@@ -68,11 +68,16 @@ name: string;
 interface IQuery {
 __typename: "Query";
 todos: Array<ITodo | null>;
+me: IUser | null;
 hello: string;
 }
 
 interface ITodosOnQueryArguments {
 author: string;
+}
+
+interface IMeOnQueryArguments {
+userId: string;
 }
 
 interface IHelloOnQueryArguments {
