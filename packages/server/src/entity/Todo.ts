@@ -3,9 +3,8 @@ import {
   BaseEntity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToMany,
   CreateDateColumn,
-  getRepository,
+  ManyToOne,
 } from 'typeorm'
 import { IsNotEmpty } from 'class-validator'
 import { User } from './User'
@@ -18,21 +17,19 @@ export class Todo extends BaseEntity {
   @Column('text')
   title: string
 
-  @Column('text')
+  @Column('text', { nullable: true })
   description: string
 
   @Column({ default: false })
   done: boolean
 
-  @ManyToMany((_) => User, (user: User) => user.todos, {
+  @ManyToOne(() => User, (author: User) => author.todos, {
     onDelete: 'CASCADE',
     eager: true,
+    nullable: false,
   })
-  @IsNotEmpty()
-  createdBy: User
+  author: User
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date
 }
-
-export const getTodoRepository = () => getRepository(Todo)
