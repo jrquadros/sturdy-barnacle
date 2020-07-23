@@ -39,6 +39,7 @@ createdAt: string;
 interface IUser {
 __typename: "User";
 id: string;
+name: string;
 email: string;
 todos: Array<ITodo | null> | null;
 }
