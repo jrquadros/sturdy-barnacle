@@ -52,7 +52,7 @@ register: Array<IError> | null;
 interface IAddTodoOnMutationArguments {
 title: string;
 description?: string | null;
-createdBy: IUser;
+author: string;
 }
 
 interface IRegisterOnMutationArguments {
@@ -62,12 +62,7 @@ name: string;
 
 interface IQuery {
 __typename: "Query";
-todos: Array<ITodo> | null;
 hello: string;
-}
-
-interface ITodosOnQueryArguments {
-user: IUser;
 }
 
 interface IHelloOnQueryArguments {
