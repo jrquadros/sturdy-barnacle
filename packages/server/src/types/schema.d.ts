@@ -46,6 +46,7 @@ todos: Array<ITodo | null> | null;
 interface IMutation {
 __typename: "Mutation";
 addTodo: Array<IError> | null;
+markAsDone: Array<IError> | null;
 register: Array<IError> | null;
 }
 
@@ -53,6 +54,10 @@ interface IAddTodoOnMutationArguments {
 title: string;
 description?: string | null;
 author: string;
+}
+
+interface IMarkAsDoneOnMutationArguments {
+todoId: string;
 }
 
 interface IRegisterOnMutationArguments {
