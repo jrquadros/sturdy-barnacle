@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Center } from './Center'
 import { Button } from './Button'
 import { Separator } from './Separator'
+import { Link } from './Link'
 import * as yup from 'yup'
 
 const schema = yup.object().shape({ email: yup.string().email() })
@@ -25,13 +26,6 @@ const LoginButton = styled(Button)`
   width: 21.2rem;
   margin: 2px;
   font-size: 0.8rem;
-`
-
-const Link = styled.a`
-  font-size: 0.8rem;
-  :hover {
-    cursor: pointer;
-  }
 `
 
 const ErrorMessage = styled.span`
