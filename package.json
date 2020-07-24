@@ -11,7 +11,17 @@
     "bootstrap": "lerna bootstrap",
     "server:ci": "lerna run --scope server ci"
   },
-  "workspaces": [
-    "packages/*"
-  ]
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "relay-compiler",
+      "relay-compiler/**",
+      "**/relay-compiler/**",
+      "relay-compiler-language-typescript",
+      "**/relay-compiler-language-typescript/**",
+      "relay-compiler-language-typescript/**"
+    ]
+  }
 }
