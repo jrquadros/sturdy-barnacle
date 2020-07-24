@@ -7,7 +7,7 @@ export const Routes = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path={'/todos'} component={Todos} />
+        <Route path={'/todos/:userid'} component={Todos} />
         <Route render={() => Home()} />
       </Switch>
     </BrowserRouter>

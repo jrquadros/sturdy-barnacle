@@ -16,8 +16,6 @@ const network = Network.create(__DEV__ ? RelayNetworkLogger.wrapFetch(cacheHandl
 const source = new RecordSource()
 const store = new Store(source)
 
-// export const inspector = new RecordSourceInspector(source);
-
 const env = new Environment({
   network,
   store,
