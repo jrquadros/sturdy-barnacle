@@ -5,14 +5,23 @@
     "yarn": "^1.16.0"
   },
   "devDependencies": {
-    "lerna": "^3.22.1",
-    "relay-compiler-language-typescript": "2.0.0"
+    "lerna": "^3.22.1"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "server:ci": "lerna run --scope server ci"
   },
-  "workspaces": [
-    "packages/*"
-  ]
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "relay-compiler",
+      "relay-compiler/**",
+      "**/relay-compiler/**",
+      "relay-compiler-language-typescript",
+      "**/relay-compiler-language-typescript/**",
+      "relay-compiler-language-typescript/**"
+    ]
+  }
 }

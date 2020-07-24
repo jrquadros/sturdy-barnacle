@@ -1,6 +1,5 @@
 import React from 'react'
 import { hot } from 'react-hot-loader'
+import { Routes } from './Routes'
 
-import UserList from './UserList'
-
-export default hot(module)(UserList)
+export default hot(module)(Routes)
