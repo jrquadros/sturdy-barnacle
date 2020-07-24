@@ -71,7 +71,7 @@ export const SignInForm = () => {
         <Separator size={10} />
         <LoginButton onClick={handleLoginButtonClick}>Entrar</LoginButton>
         <Separator size={8} />
-        <Link>SignUp</Link>
+        <Link onClick={() => history.push('/register')}>SignUp</Link>
       </FormContainer>
     </Center>
   )
