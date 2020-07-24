@@ -113,7 +113,7 @@ export const Register = () => {
         />
         {error && <ErrorMessage>{error}</ErrorMessage>}
         <Separator size={10} />
-        <LoginButton onClick={handleRegisterButtonClick}>Registrar</LoginButton>
+        <LoginButton onClick={handleRegisterButtonClick}>Entrar</LoginButton>
         <Separator size={8} />
       </FormContainer>
     </Center>
