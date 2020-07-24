@@ -1,14 +1,14 @@
-import ReactDOM from 'react-dom'
+import '@babel/polyfill'
 import React from 'react'
+import ReactDOM from 'react-dom'
 
 import App from './App'
 
-ReactDOM.render(<App name="World" />, document.querySelector('#container'))
+const render = () => {
+  const root = document.createElement('div')
+  document.body.appendChild(root)
 
-if (module && module.hot) {
-  module.hot.accept()
-
-  module.hot.addStatusHandler(status => {
-    if (status === 'prepare') console.clear()
-  })
+  ReactDOM.render(<App />, root)
 }
+
+render()
